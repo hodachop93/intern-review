@@ -6,4 +6,7 @@
     <dimen name="actionbar.height">52dp</dimen>
     <dimen name="actionbar.imageview.back.width">18dp</dimen>
     <dimen name="actionbar.imageview.back.height">18dp</dimen>
+    <dimen name="contact.imgview.avatar.width">60dp</dimen>
+    <dimen name="contact.imgview.avatar.Height">60dp</dimen>
+    <dimen name="contact.textview.username.margin_left">8dp</dimen>
 </resources>
