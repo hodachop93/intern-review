@@ -6,7 +6,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 
-
+/**
+ * Main Activity that is launched when application start
+ */
 public class MainActivity extends ActionBarActivity {
 
     @Override
@@ -17,6 +19,9 @@ public class MainActivity extends ActionBarActivity {
         addContactsFragment();
     }
 
+    /**
+     * Add ContactsFragment to MainActivity
+     */
     private void addContactsFragment() {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();

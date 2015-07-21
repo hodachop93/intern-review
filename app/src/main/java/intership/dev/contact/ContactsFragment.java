@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 /**
+ * This class is used to display list of contacts
  * Created by hodachop93 on 21/07/2015.
  */
 public class ContactsFragment extends Fragment {
+    //Action Bar
     private ActionBarCustom mActionBar;
+
+    //Listview is used to display a list of contacts
     private ListView mListView;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
