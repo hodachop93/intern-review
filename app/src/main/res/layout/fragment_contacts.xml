@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <intership.dev.contact.ActionBarCustom
+    <intership.dev.contact.utils.ActionBarCustom
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:actionbar_title="@string/contact.textview.title"

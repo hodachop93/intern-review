@@ -1,10 +1,13 @@
-package intership.dev.contact;
+package intership.dev.contact.activities;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
+
+import intership.dev.contact.fragments.ContactsFragment;
+import intership.dev.contact.R;
 
 /**
  * Main Activity that is launched when application start

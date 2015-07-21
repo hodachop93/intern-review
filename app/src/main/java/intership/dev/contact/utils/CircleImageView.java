@@ -1,4 +1,4 @@
-package intership.dev.contact;
+package intership.dev.contact.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -17,6 +17,8 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
+
+import intership.dev.contact.R;
 
 /**
  *  This class is used to create a circle image view from a square image

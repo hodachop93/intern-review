@@ -1,4 +1,4 @@
-package intership.dev.contact;
+package intership.dev.contact.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,6 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import intership.dev.contact.R;
 
 /**
  * Class custom action bar

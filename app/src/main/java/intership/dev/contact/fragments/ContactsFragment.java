@@ -1,4 +1,4 @@
-package intership.dev.contact;
+package intership.dev.contact.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+
+import intership.dev.contact.R;
+import intership.dev.contact.utils.ActionBarCustom;
 
 /**
  * This class is used to display list of contacts
