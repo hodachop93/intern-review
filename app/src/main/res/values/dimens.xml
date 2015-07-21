@@ -9,4 +9,7 @@
     <dimen name="contact.imgview.avatar.width">60dp</dimen>
     <dimen name="contact.imgview.avatar.Height">60dp</dimen>
     <dimen name="contact.textview.username.margin_left">8dp</dimen>
+    <dimen name="contact.imgbutton.width">32dp</dimen>
+    <dimen name="contact.imgbutton.height">32dp</dimen>
+    <dimen name="contact.deletebutton.margin_right">9dp</dimen>
 </resources>

@@ -21,8 +21,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="@dimen/contact.textview.username.margin_left"
+        android:layout_weight="1"
         android:text="Brunch this week"
         android:textColor="@color/contact.textview.username.text_color"
         android:textSize="15sp" />
+
+    <ImageButton
+        android:id="@+id/imgBtnEdit"
+        android:layout_width="@dimen/contact.imgbutton.width"
+        android:layout_height="@dimen/contact.imgbutton.height"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pressed_edit_button" />
+
+    <ImageButton
+        android:id="@+id/imgBtnDelete"
+        android:layout_width="@dimen/contact.imgbutton.width"
+        android:layout_height="@dimen/contact.imgbutton.height"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="@dimen/contact.deletebutton.margin_right"
+        android:background="@android:color/transparent"
+        android:src="@drawable/bg_pressed_delete_button" />
 
 </LinearLayout>
