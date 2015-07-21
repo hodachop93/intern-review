@@ -18,13 +18,9 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.widget.ImageView;
 
-/*
- *tai mot file attrs.xml trong value
- <declare-styleable name="CircleImageView">
-        <attr name="border_width" format="dimension" />
-        <attr name="border_color" format="color" />
-    </declare-styleable>
- **/
+/**
+ *  This class is used to create a circle image view from a square image
+ */
  
 public class CircleImageView extends ImageView {
 
