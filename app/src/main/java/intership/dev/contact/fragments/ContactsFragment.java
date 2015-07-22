@@ -5,10 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +26,7 @@ import intership.dev.contact.utils.ContactListAdapter;
  * This class is used to display list of contacts
  * Created by hodachop93 on 21/07/2015.
  */
-public class ContactsFragment extends Fragment {
-    private ActionBarCustom mActionBar;
+public class ContactsFragment extends Fragment{
 
     //Listview is used to display a list of contacts
     private ListView mListView;
@@ -37,7 +40,6 @@ public class ContactsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_contacts, container, false);
-        mActionBar = (ActionBarCustom) rootView.findViewById(R.id.actionbar);
         mListView = (ListView) rootView.findViewById(R.id.lvContacts);
         return rootView;
     }
@@ -52,6 +54,19 @@ public class ContactsFragment extends Fragment {
         mAdapter = new ContactListAdapter(getActivity(), mUsers);
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+                ContactDetailFragment frag = new ContactDetailFragment();
+                transaction.replace(R.id.container, frag);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
     }
 
     private void createDefaultData() {
@@ -66,4 +81,6 @@ public class ContactsFragment extends Fragment {
             mUsers.add(user);
         }
     }
+
+
 }

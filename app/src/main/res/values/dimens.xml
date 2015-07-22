@@ -12,4 +12,8 @@
     <dimen name="contact.imgbutton.width">32dp</dimen>
     <dimen name="contact.imgbutton.height">32dp</dimen>
     <dimen name="contact.deletebutton.margin_right">9dp</dimen>
+    <dimen name="contact.imgAvatar.margin_left">10dp</dimen>
+    <dimen name="contact.edtName.text.size">16sp</dimen>
+    <dimen name="contact.edtName.text.margin_top">23dp</dimen>
+    <dimen name="contact.edtDescription.margin_top">39dp</dimen>
 </resources>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff">
+
+    <intership.dev.contact.utils.ActionBarCustom
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:actionbar_title="Contact"
+        app:left_icon="@drawable/ic_back" />
+
+    <RelativeLayout
+        android:id="@+id/rlInfo"
+        android:layout_width="match_parent"
+        android:layout_height="127dp"
+        android:layout_below="@id/actionbar">
+
+        <intership.dev.contact.utils.CircleImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/contact.imgAvatar.margin_left"
+            android:src="@drawable/ic_avt1" />
+
+        <TextView
+            android:id="@+id/tvname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="40dp"
+            android:layout_toRightOf="@+id/imgAvatar"
+            android:text="Luke Skywalker Bell"
+            android:textColor="#505050"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/separator_line" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlEditName"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/rlInfo"
+        android:layout_marginTop="@dimen/contact.edtName.text.margin_top"
+        android:background="@color/contact.edtName.background">
+
+        <EditText
+            android:id="@+id/edtNameEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:paddingLeft="15dp"
+            android:text="Luke Skywalker Bell"
+            android:textColor="@color/contact.edtName.text.color"
+            android:textSize="@dimen/contact.edtName.text.size" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlEditDescription"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/rlEditName"
+        android:layout_marginTop="@dimen/contact.edtDescription.margin_top"
+        >
+
+        <EditText
+            android:id="@+id/edtDescriptionEdit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="15dp"
+            android:background="@color/contact.edtName.background"
+            android:text="@string/contact.editDescription.string_default"
+            android:textColor="@color/contact.edtName.text.color" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/lnControl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/txtButonOK"
+            android:background="@drawable/border_left_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Save"
+            android:textColor="@color/contact.dialog.button.text"
+            android:textSize="17sp" />
+
+<!--        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#b0b0b5" />-->
+
+        <Button
+            android:id="@+id/txtButonCancel"
+            android:background="@drawable/border_right_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textColor="@color/contact.dialog.button.text"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+<!--    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/lnControl"
+        android:background="#b0b0b5" />-->
+
+</RelativeLayout>

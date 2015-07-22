@@ -3,4 +3,5 @@
 
     <string name="action_settings">Settings</string>
     <string name="contact.textview.title">Contacts</string>
+    <string name="contact.editDescription.string_default">Luke Skywalker Bell is an award-winning actress who has earned solid reputation in stage productions and in many supporting roles on screen.</string>
 </resources>

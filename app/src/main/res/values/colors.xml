@@ -150,4 +150,7 @@
     <color name="contact.textview.username.text_color">#505050</color>
     <color name="contact.dialog.button.text">#007aff</color>
     <color name="button.border">#b0b0b5</color>
+    <color name="separator_line">#d1d1d1</color>
+    <color name="contact.edtName.background">#f9f9f9</color>
+    <color name="contact.edtName.text.color">#626262</color>
 </resources>
