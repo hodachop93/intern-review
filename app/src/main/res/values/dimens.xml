@@ -16,4 +16,7 @@
     <dimen name="contact.edtName.text.size">16sp</dimen>
     <dimen name="contact.edtName.text.margin_top">23dp</dimen>
     <dimen name="contact.edtDescription.margin_top">39dp</dimen>
+    <dimen name="progressbar.padding">3dp</dimen>
+    <dimen name="progressbar.width">36dp</dimen>
+    <dimen name="progressbar.height">36dp</dimen>
 </resources>

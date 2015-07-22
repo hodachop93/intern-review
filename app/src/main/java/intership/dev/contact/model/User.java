@@ -2,11 +2,13 @@ package intership.dev.contact.model;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
+
 /**
  * This class is used to control the information of a user
  * Created by hodachop93 on 21/07/2015.
  */
-public class User {
+public class User implements Serializable {
     //Avatar of a user
     private Bitmap mAvatar;
 

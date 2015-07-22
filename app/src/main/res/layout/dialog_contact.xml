@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_weight="1"
-            android:background="@drawable/border_left_button"
+            android:background="@drawable/border_transparent_left_button"
             android:shadowColor="#000000"
             android:text="OK"
             android:textColor="@color/contact.dialog.button.text" />
@@ -38,7 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_weight="1"
-            android:background="@drawable/border_right_button"
+            android:background="@drawable/border_transparent_right_button"
             android:text="Cancel"
             android:textColor="@color/contact.dialog.button.text" />
     </LinearLayout>

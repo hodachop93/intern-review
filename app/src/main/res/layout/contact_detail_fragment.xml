@@ -53,7 +53,7 @@
         android:background="@color/contact.edtName.background">
 
         <EditText
-            android:id="@+id/edtNameEdit"
+            android:id="@+id/edtName"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@android:color/transparent"
@@ -72,7 +72,7 @@
         >
 
         <EditText
-            android:id="@+id/edtDescriptionEdit"
+            android:id="@+id/edtDescription"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="15dp"
@@ -89,8 +89,8 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/txtButonOK"
-            android:background="@drawable/border_left_button"
+            android:id="@+id/btnSave"
+            android:background="@drawable/bg_pressed_white_left_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -100,14 +100,9 @@
             android:textColor="@color/contact.dialog.button.text"
             android:textSize="17sp" />
 
-<!--        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#b0b0b5" />-->
-
         <Button
-            android:id="@+id/txtButonCancel"
-            android:background="@drawable/border_right_button"
+            android:id="@+id/btnCancel"
+            android:background="@drawable/bg_pressed_white_right_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -117,11 +112,5 @@
             android:textColor="@color/contact.dialog.button.text"
             android:textSize="17sp" />
     </LinearLayout>
-
-<!--    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_above="@+id/lnControl"
-        android:background="#b0b0b5" />-->
 
 </RelativeLayout>

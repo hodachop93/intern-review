@@ -22,11 +22,6 @@ public class ContactDialog extends Dialog implements View.OnClickListener {
     private Button mBtnCancel;
     private OnClickContactDialog mListener;
 
-    //Position of the item in list contacts
-    private int mPosition;
-
-
-
     public ContactDialog(Context context) {
         super(context, R.style.ContactDialog);
     }
@@ -54,15 +49,6 @@ public class ContactDialog extends Dialog implements View.OnClickListener {
     public void setOnClickListViewContactListener(OnClickContactDialog listener) {
         mListener = listener;
     }
-
-    public int getPosition() {
-        return mPosition;
-    }
-
-    public void setPosition(int mPosition) {
-        this.mPosition = mPosition;
-    }
-
 
     @Override
     public void onClick(View v) {

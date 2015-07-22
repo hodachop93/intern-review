@@ -140,7 +140,7 @@
     <color name="DarkBlue">#00008B</color>
     <color name="Navy">#000080</color>
     <color name="Black">#000000</color>
-	<color name="colorPrimary">#F50057</color>
+    <color name="colorPrimary">#F50057</color>
     <color name="colorPrimaryDark">#C51162</color>
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
@@ -151,6 +151,9 @@
     <color name="contact.dialog.button.text">#007aff</color>
     <color name="button.border">#b0b0b5</color>
     <color name="separator_line">#d1d1d1</color>
-    <color name="contact.edtName.background">#f9f9f9</color>
+    <color name="contact.edtName.background">#d8d8d8</color>
     <color name="contact.edtName.text.color">#626262</color>
+    <color name="dark_slate_gray">#2F4F4F</color>
+    <color name="gray_2">#AFAFAF</color>
+    <color name="gray_1">#C0C0C0</color>
 </resources>

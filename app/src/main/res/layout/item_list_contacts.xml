@@ -34,7 +34,7 @@
         android:layout_height="@dimen/contact.imgbutton.height"
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
-        android:src="@drawable/bg_pressed_edit_button" />
+        android:src="@drawable/bg_pressed_contact_edit_button" />
 
     <ImageButton
         android:id="@+id/imgBtnDelete"
@@ -44,6 +44,6 @@
         android:layout_marginRight="@dimen/contact.deletebutton.margin_right"
 
         android:background="@android:color/transparent"
-        android:src="@drawable/bg_pressed_delete_button" />
+        android:src="@drawable/bg_pressed_contact_delete_button" />
 
 </LinearLayout>
