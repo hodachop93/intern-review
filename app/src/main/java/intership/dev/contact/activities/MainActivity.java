@@ -31,7 +31,6 @@ public class MainActivity extends ActionBarActivity {
 
         ContactsFragment frag = new ContactsFragment();
         transaction.add(R.id.container, frag);
-        transaction.addToBackStack(null);
         transaction.commit();
     }
 

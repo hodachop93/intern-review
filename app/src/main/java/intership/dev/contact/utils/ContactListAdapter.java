@@ -2,6 +2,8 @@ package intership.dev.contact.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.support.v7.app.AlertDialog;
+import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,7 @@ import intership.dev.contact.model.User;
 public class ContactListAdapter extends BaseAdapter {
     private Context mContext;
     private List<User> mUsers;
-
+    private ContactDialog dialog;
     /**
      * Create an adapter for a ListView that contains a list of contacts
      *
@@ -33,6 +35,7 @@ public class ContactListAdapter extends BaseAdapter {
     public ContactListAdapter(Context mContext, List<User> mUsers) {
         this.mUsers = mUsers;
         this.mContext = mContext;
+        dialog = new ContactDialog(mContext);
     }
 
     @Override
@@ -79,23 +82,41 @@ public class ContactListAdapter extends BaseAdapter {
      * @param position The position of a user in list of users corresponding
      *                 to the position of an item in ListView
      */
-    private void setEvent(ViewHolder holder, final int position) {
+    private void setEvent(final ViewHolder holder, final int position) {
         User user = (User) getItem(position);
 
         holder.mImgBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "edit" + position + "", Toast.LENGTH_SHORT).show();
+                if (holder.mImgBtnEdit.isSelected()) {
+                    holder.mImgBtnEdit.setSelected(false);
+                } else {
+                    holder.mImgBtnEdit.setSelected(true);
+                }
+                //Toast.makeText(mContext, "edit" + position + "", Toast.LENGTH_SHORT).show();
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setView(R.layout.dialog_contact);
+                builder.create().show();*/
+
+                dialog.show();
+
             }
         });
+
 
         holder.mImgBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (holder.mImgBtnDelete.isSelected()) {
+                    holder.mImgBtnDelete.setSelected(false);
+                } else {
+                    holder.mImgBtnDelete.setSelected(true);
+                }
                 Toast.makeText(mContext, "delete" + position + "", Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 
     /**
      * Set value for a ViewHolder corresponding to a user in list contacts
