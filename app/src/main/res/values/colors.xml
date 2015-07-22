@@ -149,4 +149,5 @@
     <color name="actionbar.background">#00bbd2</color>
     <color name="contact.textview.username.text_color">#505050</color>
     <color name="contact.dialog.button.text">#007aff</color>
+    <color name="button.border">#b0b0b5</color>
 </resources>

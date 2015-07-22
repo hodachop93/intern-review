@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+    android:layout_width="266dp"
     android:layout_height="wrap_content"
-    android:alpha="0.5"
+    android:background="#f3f2f2f2"
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_weight="1"
-        android:textColor="@color/Black"
-        android:text="Hop" />
+        android:gravity="center"
+        android:paddingBottom="28dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="40dp"
+        android:text="Are you sure you want to delete Micheal Jackson?"
+        android:textColor="@color/Black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,19 +24,21 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnOK"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
+            android:background="@drawable/border_left_button"
+            android:shadowColor="#000000"
             android:text="OK"
-            style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/contact.dialog.button.text" />
 
         <Button
+            android:id="@+id/btnCancel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="@android:color/transparent"
+            android:background="@drawable/border_right_button"
             android:text="Cancel"
             android:textColor="@color/contact.dialog.button.text" />
     </LinearLayout>
