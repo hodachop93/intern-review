@@ -16,22 +16,27 @@ public class User {
     //Information of a user
     private String mDescription;
 
+    //Determine btnDelete is selected or not
+    private boolean isDelete;
+
     //Default constructor
     public User() {
     }
 
     /**
      * Create a new user with information
-     * @param mAvatar The avatar of a user
-     * @param mUserName The fullname of a user
+     *
+     * @param mAvatar      The avatar of a user
+     * @param mUserName    The fullname of a user
      * @param mDescription Some information of a user
-
      */
     public User(Bitmap mAvatar, String mUserName, String mDescription) {
         this.mAvatar = mAvatar;
         this.mUserName = mUserName;
         this.mDescription = mDescription;
+        isDelete = false;
     }
+
     public Bitmap getAvatar() {
         return mAvatar;
     }
@@ -56,5 +61,11 @@ public class User {
         this.mDescription = mDescription;
     }
 
+    public void setIsDelete(boolean isDelete) {
+        this.isDelete = isDelete;
+    }
 
+    public boolean isDelete() {
+        return isDelete;
+    }
 }

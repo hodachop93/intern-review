@@ -148,7 +148,7 @@ public class ActionBarCustom extends RelativeLayout implements View.OnClickListe
      */
     private void setAttributeSet(Context context, AttributeSet attrs) {
         TypedArray typedArr = context.obtainStyledAttributes(attrs, R.styleable.ActionBarCustom);
-
+        
         //get
         String title = typedArr.getString(R.styleable.ActionBarCustom_actionbar_title);
         int left_icon = typedArr.getResourceId(R.styleable.ActionBarCustom_left_icon, 0);

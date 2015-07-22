@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="list_name">
+        <item>Luke Skywalker Bell</item>
+        <item>Minions Stuart</item>
+        <item>Allison Janney</item>
+        <item>Jennifer Saunders</item>
+    </string-array>
+
+    <string-array name="list_avatar">
+        <item>@drawable/ic_avt1</item>
+        <item>@drawable/ic_avt2</item>
+        <item>@drawable/ic_avt3</item>
+        <item>@drawable/ic_avt4</item>
+    </string-array>
+</resources>

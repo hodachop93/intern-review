@@ -1,6 +1,7 @@
 package intership.dev.contact.utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.support.v7.app.AlertDialog;
 import android.text.Html;
@@ -22,7 +23,7 @@ import intership.dev.contact.model.User;
 /**
  * Created by hodachop93 on 21/07/2015.
  */
-public class ContactListAdapter extends BaseAdapter {
+public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnClickContactDialog, DialogInterface.OnDismissListener{
     private Context mContext;
     private List<User> mUsers;
     private ContactDialog dialog;
@@ -36,6 +37,8 @@ public class ContactListAdapter extends BaseAdapter {
         this.mUsers = mUsers;
         this.mContext = mContext;
         dialog = new ContactDialog(mContext);
+        dialog.setOnClickListViewContactListener(this);
+        dialog.setOnDismissListener(this);
     }
 
     @Override
@@ -83,7 +86,7 @@ public class ContactListAdapter extends BaseAdapter {
      *                 to the position of an item in ListView
      */
     private void setEvent(final ViewHolder holder, final int position) {
-        User user = (User) getItem(position);
+        final User user = (User) getItem(position);
 
         holder.mImgBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,12 +96,7 @@ public class ContactListAdapter extends BaseAdapter {
                 } else {
                     holder.mImgBtnEdit.setSelected(true);
                 }
-                //Toast.makeText(mContext, "edit" + position + "", Toast.LENGTH_SHORT).show();
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setView(R.layout.dialog_contact);
-                builder.create().show();*/
 
-                dialog.show();
 
             }
         });
@@ -107,12 +105,10 @@ public class ContactListAdapter extends BaseAdapter {
         holder.mImgBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (holder.mImgBtnDelete.isSelected()) {
-                    holder.mImgBtnDelete.setSelected(false);
-                } else {
-                    holder.mImgBtnDelete.setSelected(true);
-                }
-                Toast.makeText(mContext, "delete" + position + "", Toast.LENGTH_SHORT).show();
+                user.setIsDelete(true);
+                holder.mImgBtnDelete.setSelected(true);
+                dialog.setPosition(position);
+                dialog.show();
             }
         });
     }
@@ -130,8 +126,31 @@ public class ContactListAdapter extends BaseAdapter {
 
         holder.mAvatar.setImageBitmap(user.getAvatar());
         holder.mUsername.setText(user.getUserName());
-
+        if (user.isDelete()){
+            holder.mImgBtnDelete.setSelected(true);
+        }else{
+            holder.mImgBtnDelete.setSelected(false);
+        }
     }
+
+    @Override
+    public void onClickBtnOK(View v) {
+        mUsers.remove(dialog.getPosition());
+        notifyDataSetChanged();
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onClickBtnCancel(View v) {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialogInterface) {
+        mUsers.get(dialog.getPosition()).setIsDelete(false);
+        notifyDataSetChanged();
+    }
+
 
     /**
      * This class is used to control view items in convertview
