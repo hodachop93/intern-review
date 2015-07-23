@@ -1,14 +1,17 @@
 package intership.dev.contact.fragments;
 
+import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +27,15 @@ import intership.dev.contact.utils.LoadMoreListView;
  * Created by hodachop93 on 21/07/2015.
  */
 public class ContactsFragment extends Fragment {
+    //The number of items will be loaded more when loading more
+    //more list contacts
+    public static final int NUMBER_DATA_GET_MORE = 8;
+
+    //The number of items will be loaded when application run
+    public static final int NUMBER_FIRST_ITEMS = 8;
+
+    //The number times will be looped when creating default data
+    public static final int FACTOR_DATA = 6;
 
     //Listview is used to display a list of contacts
     private LoadMoreListView mListView;
@@ -37,38 +49,52 @@ public class ContactsFragment extends Fragment {
     //The object used to control data in the database
     private ContactDBHelper mDbHelper;
 
+    private int mCurNumItems;
+
+    private boolean mIsOverData = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /*mUsers = new ArrayList<User>();
-        for (int i = 0; i < 2; i++) {
-            createDefaultData();
+        //Create database if it is not exist
+        mDbHelper = new ContactDBHelper(getActivity());
+        mUsers = new ArrayList<User>();
+
+        if (mDbHelper.getAllUsers().size() == 0) {
+            for (int i = 0; i < FACTOR_DATA; i++) {
+                createDefaultData(i);
+            }
+        }
+        mCurNumItems = 0;
+
+        try {
+            getDataForContacts(mCurNumItems, mCurNumItems + NUMBER_FIRST_ITEMS);
+        } catch (IndexOutOfBoundsException ex) {
+            Toast.makeText(getActivity(), "No more data to load", Toast.LENGTH_SHORT).show();
         }
 
-        //Add data to database
-        ContactDBHelper db = new ContactDBHelper(getActivity());
-        for (User user : mUsers){
-            db.addUser(user);
-        }*/
-        mDbHelper = new ContactDBHelper(getActivity());
-        int size = mDbHelper.getAllUsers().size();
-        if (mDbHelper.getAllUsers().size() == 0) {
-            mUsers = new ArrayList<User>();
-            for (int i = 0; i < 2; i++) {
-                createDefaultData();
-            }
-        } else {
-            mUsers = mDbHelper.getAllUsers();
-            TypedArray avatars = getResources().obtainTypedArray(R.array.list_avatar);
-            for (int i = 0; i < mUsers.size(); i++) {
-                User user = mUsers.get(i);
-                Bitmap avatar = BitmapFactory.decodeResource(getResources(),
-                        avatars.getResourceId(user.getIdAvatar(), -1));
-                user.setAvatar(avatar);
-            }
-        }
+
         mAdapter = new ContactListAdapter(getActivity(), mUsers);
+    }
+
+    /**
+     * Get first data for list contacts
+     */
+    private void getDataForContacts(int start, int end) throws IndexOutOfBoundsException {
+        //Get  8 first items in database
+        mCurNumItems = start;
+        List<User> userList = mDbHelper.getAllUsers();
+        TypedArray avatars = getResources().obtainTypedArray(R.array.list_avatar);
+        for (int i = start; i < end; i++) {
+            User user = userList.get(i);
+            Bitmap avatar = BitmapFactory.decodeResource(getResources(),
+                    avatars.getResourceId(user.getIdAvatar(), -1));
+            user.setAvatar(avatar);
+
+            mUsers.add(user);
+        }
+        mCurNumItems = end;
     }
 
     @Override
@@ -88,7 +114,13 @@ public class ContactsFragment extends Fragment {
         mListView.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                new LoadDataTask().execute();
+                if (!mIsOverData){
+                    //If data is not over
+                    new LoadDataTask().execute();
+                } else {
+                    //If data is over
+                    Toast.makeText(getActivity(), "No more data to load", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -98,7 +130,12 @@ public class ContactsFragment extends Fragment {
         super.onPause();
     }
 
-    private void createDefaultData() {
+    /**
+     * Create default data for application
+     *
+     * @param factor The multiplicative factor
+     */
+    private void createDefaultData(int factor) {
         String[] names = getResources().getStringArray(R.array.list_name);
         TypedArray avatars = getResources().obtainTypedArray(R.array.list_avatar);
         int size = names.length;
@@ -106,7 +143,7 @@ public class ContactsFragment extends Fragment {
             Bitmap avatar = BitmapFactory.decodeResource(getResources(), avatars.getResourceId(i, -1));
             String name = names[i];
             String des = "";
-            User user = new User(mUsers.size(), avatar, name, des, i);
+            User user = new User(factor * size + i, avatar, name, des, i);
             mUsers.add(user);
             mDbHelper.addUser(user);
         }
@@ -120,19 +157,25 @@ public class ContactsFragment extends Fragment {
         @Override
         protected Void doInBackground(Void... params) {
 
-            if (isCancelled()) {
-                return null;
-            }
-
             // Simulates a background task
             try {
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
             // load more data
-            createDefaultData();
+            try {
+                getDataForContacts(mCurNumItems, mCurNumItems + NUMBER_FIRST_ITEMS);
+            } catch (IndexOutOfBoundsException ex) {
+                final FragmentActivity activity = getActivity();
+                activity.runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(activity, "No more data to load", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            }
 
             return null;
         }
@@ -149,10 +192,5 @@ public class ContactsFragment extends Fragment {
             super.onPostExecute(result);
         }
 
-        @Override
-        protected void onCancelled() {
-            // Notify the loading more operation has finished
-            mListView.onLoadMoreComplete();
-        }
     }
 }

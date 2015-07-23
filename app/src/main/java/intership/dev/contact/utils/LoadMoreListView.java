@@ -37,6 +37,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
     private OnLoadMoreListener mOnLoadMoreListener;
     // To know if the list is loading more items
     private boolean mIsLoadingMore = false;
+
     private int mCurrentScrollState;
 
     public LoadMoreListView(Context context) {
@@ -110,16 +111,17 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
             if (visibleItemCount == totalItemCount) {
                 mProgressBarLoadMore.setVisibility(View.GONE);
-                // mLabLoadMore.setVisibility(View.GONE);
                 return;
             }
 
             boolean loadMore = firstVisibleItem + visibleItemCount >= totalItemCount;
+            if (!mIsLoadingMore){
+                mProgressBarLoadMore.setVisibility(GONE);
+            }
 
             if (!mIsLoadingMore && loadMore
                     && mCurrentScrollState != SCROLL_STATE_IDLE) {
                 mProgressBarLoadMore.setVisibility(View.VISIBLE);
-                // mLabLoadMore.setVisibility(View.VISIBLE);
                 mIsLoadingMore = true;
                 onLoadMore();
             }
@@ -127,6 +129,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
         }
 
     }
+
 
     public void onScrollStateChanged(AbsListView view, int scrollState) {
         mCurrentScrollState = scrollState;
@@ -137,8 +140,11 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
 
     }
 
+    /**
+     * Called when the list reaches the last item (the last item is visible
+     * to the user
+     */
     public void onLoadMore() {
-        Log.d(TAG, "onLoadMore");
         if (mOnLoadMoreListener != null) {
             mOnLoadMoreListener.onLoadMore();
         }
@@ -158,7 +164,7 @@ public class LoadMoreListView extends ListView implements OnScrollListener {
     public interface OnLoadMoreListener {
         /**
          * Called when the list reaches the last item (the last item is visible
-         * to the user)
+         * to the user
          */
         public void onLoadMore();
     }
