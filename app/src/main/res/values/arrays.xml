@@ -7,6 +7,21 @@
         <item>Jennifer Saunders</item>
     </string-array>
 
+    <string-array name="list_description">
+        <item>Luke Skywalker Bell is an award-winning actress who has earned solid reputation
+                in stage productions and in many supporting roles on screen.
+        </item>
+        <item>Minions Stuart is an award-winning actress who has earned solid reputation
+                in stage productions and in many supporting roles on screen.
+        </item>
+        <item>Allison Janney is an award-winning actress who has earned solid reputation
+                in stage productions and in many supporting roles on screen.
+        </item>
+        <item>Jennifer Saunders is an award-winning actress who has earned solid reputation
+                in stage productions and in many supporting roles on screen.
+        </item>
+    </string-array>
+
     <string-array name="list_avatar">
         <item>@drawable/ic_avt1</item>
         <item>@drawable/ic_avt2</item>

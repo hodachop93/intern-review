@@ -1,8 +1,6 @@
 package intership.dev.contact.utils;
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -12,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -79,7 +76,7 @@ public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnC
             convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_contacts, parent, false);
 
             holder = new ViewHolder();
-            holder.mAvatar = (ImageView) convertView.findViewById(R.id.imgAvatar);
+            holder.mAvatar = (CircleImageView) convertView.findViewById(R.id.imgAvatar);
             holder.mUsername = (TextView) convertView.findViewById(R.id.tvUsername);
             holder.mImgBtnEdit = (ImageButton) convertView.findViewById(R.id.imgBtnEdit);
             holder.mImgBtnDelete = (ImageButton) convertView.findViewById(R.id.imgBtnDelete);
@@ -164,6 +161,7 @@ public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnC
 
         holder.mAvatar.setImageBitmap(user.getAvatar());
         holder.mUsername.setText(user.getUserName());
+
         if (user.isDelete()) {
             holder.mImgBtnDelete.setSelected(true);
         } else {
@@ -191,7 +189,7 @@ public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnC
      * This class is used to control view items in convertview
      */
     private static class ViewHolder {
-        ImageView mAvatar;
+        CircleImageView mAvatar;
         TextView mUsername;
         ImageButton mImgBtnEdit;
         ImageButton mImgBtnDelete;

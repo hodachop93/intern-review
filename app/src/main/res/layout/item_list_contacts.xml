@@ -9,11 +9,10 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <ImageView
+    <intership.dev.contact.utils.CircleImageView
         android:id="@+id/imgAvatar"
         android:layout_width="@dimen/contact.imgview.avatar.width"
         android:layout_height="@dimen/contact.imgview.avatar.Height"
-        android:scaleType="centerInside"
         android:src="@drawable/ic_avt1" />
 
     <TextView

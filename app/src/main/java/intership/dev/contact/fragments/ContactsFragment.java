@@ -1,6 +1,5 @@
 package intership.dev.contact.fragments;
 
-import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,8 +17,8 @@ import java.util.List;
 
 import intership.dev.contact.R;
 import intership.dev.contact.model.User;
-import intership.dev.contact.utils.ContactListAdapter;
 import intership.dev.contact.utils.ContactDBHelper;
+import intership.dev.contact.utils.ContactListAdapter;
 import intership.dev.contact.utils.LoadMoreListView;
 
 /**
@@ -29,13 +28,13 @@ import intership.dev.contact.utils.LoadMoreListView;
 public class ContactsFragment extends Fragment {
     //The number of items will be loaded more when loading more
     //more list contacts
-    public static final int NUMBER_DATA_GET_MORE = 8;
+    private final int NUMBER_DATA_GET_MORE = 8;
 
     //The number of items will be loaded when application run
-    public static final int NUMBER_FIRST_ITEMS = 8;
+    private final int NUMBER_FIRST_ITEMS = 8;
 
     //The number times will be looped when creating default data
-    public static final int FACTOR_DATA = 6;
+    private final int FACTOR_DATA = 6;
 
     //Listview is used to display a list of contacts
     private LoadMoreListView mListView;
@@ -49,9 +48,11 @@ public class ContactsFragment extends Fragment {
     //The object used to control data in the database
     private ContactDBHelper mDbHelper;
 
+    //The number of items in list contacts
     private int mCurNumItems;
 
-    private boolean mIsOverData = false;
+    //Inform when no more data to load
+    private boolean mIsOverData;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -71,10 +72,10 @@ public class ContactsFragment extends Fragment {
         try {
             getDataForContacts(mCurNumItems, mCurNumItems + NUMBER_FIRST_ITEMS);
         } catch (IndexOutOfBoundsException ex) {
-            Toast.makeText(getActivity(), "No more data to load", Toast.LENGTH_SHORT).show();
+            ex.printStackTrace();
         }
 
-
+        mIsOverData = false;
         mAdapter = new ContactListAdapter(getActivity(), mUsers);
     }
 
@@ -119,7 +120,7 @@ public class ContactsFragment extends Fragment {
                     new LoadDataTask().execute();
                 } else {
                     //If data is over
-                    Toast.makeText(getActivity(), "No more data to load", Toast.LENGTH_SHORT).show();
+                    mListView.onLoadMoreComplete();
                 }
             }
         });
@@ -138,11 +139,12 @@ public class ContactsFragment extends Fragment {
     private void createDefaultData(int factor) {
         String[] names = getResources().getStringArray(R.array.list_name);
         TypedArray avatars = getResources().obtainTypedArray(R.array.list_avatar);
+        String[] desList = getResources().getStringArray(R.array.list_description);
         int size = names.length;
         for (int i = 0; i < size; i++) {
             Bitmap avatar = BitmapFactory.decodeResource(getResources(), avatars.getResourceId(i, -1));
             String name = names[i];
-            String des = "";
+            String des = desList[i];
             User user = new User(factor * size + i, avatar, name, des, i);
             mUsers.add(user);
             mDbHelper.addUser(user);
@@ -166,8 +168,9 @@ public class ContactsFragment extends Fragment {
 
             // load more data
             try {
-                getDataForContacts(mCurNumItems, mCurNumItems + NUMBER_FIRST_ITEMS);
+                getDataForContacts(mCurNumItems, mCurNumItems + NUMBER_DATA_GET_MORE);
             } catch (IndexOutOfBoundsException ex) {
+                mIsOverData = true;
                 final FragmentActivity activity = getActivity();
                 activity.runOnUiThread(new Runnable() {
                     public void run() {

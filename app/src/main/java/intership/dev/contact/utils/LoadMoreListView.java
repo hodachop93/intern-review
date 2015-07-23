@@ -2,7 +2,6 @@ package intership.dev.contact.utils;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -20,7 +19,7 @@ import intership.dev.contact.R;
  */
 public class LoadMoreListView extends ListView implements OnScrollListener {
 
-    private static final String TAG = "LoadMoreListView";
+    public static final String TAG = LoadMoreListView.class.getSimpleName();
 
     /**
      * Listener that will receive notifications every time the list scrolls.
