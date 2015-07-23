@@ -1,6 +1,7 @@
 package intership.dev.contact.utils;
 
 /**
+ * This class is used to control database Contacts in SDCard
  * Created by hodachop93 on 23/07/2015.
  */
 
@@ -31,6 +32,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
     public static final String KEY_ID = "id";
     public static final String KEY_USERNAME = "username";
     public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_ID_AVATAR = "idAvatar";
 
     public ContactDBHelper(Context context) {
         super(context, DATABASE, null, VERSiON);
@@ -41,7 +43,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE " + TABLE + " ( " + KEY_ID
                 + " INTEGER PRIMARY KEY , " + KEY_USERNAME + " TEXT, "
-                + KEY_DESCRIPTION + " TEXT)");
+                + KEY_DESCRIPTION + " TEXT, " + KEY_ID_AVATAR + " INTEGER)");
 
     }
 
@@ -72,6 +74,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
                 user.setId(Integer.parseInt(cursor.getString(0)));
                 user.setUserName(cursor.getString(1));
                 user.setDescription(cursor.getString(2));
+                user.setIdAvatar(Integer.parseInt(cursor.getString(3)));
 
                 users.add(user);
             } while (cursor.moveToNext());
@@ -85,6 +88,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
 
     /**
      * Add a user to database
+     *
      * @param user The user will be added to database
      */
     public void addUser(User user) {
@@ -94,6 +98,7 @@ public class ContactDBHelper extends SQLiteOpenHelper {
         values.put(KEY_ID, user.getId());
         values.put(KEY_USERNAME, user.getUserName());
         values.put(KEY_DESCRIPTION, user.getDescription());
+        values.put(KEY_ID_AVATAR, user.getIdAvatar());
 
         db.insert(TABLE, null, values);
         if (db.isOpen()) {
@@ -113,11 +118,23 @@ public class ContactDBHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_USERNAME, user.getUserName());
         values.put(KEY_DESCRIPTION, user.getDescription());
+        values.put(KEY_ID_AVATAR, user.getIdAvatar());
 
         // updating row
         return db.update(TABLE, values, KEY_ID + " = ?",
                 new String[]{String.valueOf(user.getId())});
     }
 
-
+    /**
+     * Delete a user in the Users table in Application's database
+     * @param user The user will be deleted
+     */
+    public void deleteUser(User user) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE, KEY_ID + " = ?",
+                new String[]{String.valueOf(user.getId())});
+        if (db.isOpen()){
+            db.close();
+        }
+    }
 }

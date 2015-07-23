@@ -6,12 +6,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +16,14 @@ import java.util.List;
 import intership.dev.contact.R;
 import intership.dev.contact.model.User;
 import intership.dev.contact.utils.ContactListAdapter;
+import intership.dev.contact.utils.ContactDBHelper;
 import intership.dev.contact.utils.LoadMoreListView;
 
 /**
  * This class is used to display list of contacts
  * Created by hodachop93 on 21/07/2015.
  */
-public class ContactsFragment extends Fragment implements AdapterView.OnItemClickListener,
-        ContactDetailFragment.OnChangeItemListener {
+public class ContactsFragment extends Fragment {
 
     //Listview is used to display a list of contacts
     private LoadMoreListView mListView;
@@ -37,12 +34,39 @@ public class ContactsFragment extends Fragment implements AdapterView.OnItemClic
     //The adapter of the listview
     private ContactListAdapter mAdapter;
 
+    //The object used to control data in the database
+    private ContactDBHelper mDbHelper;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUsers = new ArrayList<User>();
+
+        /*mUsers = new ArrayList<User>();
         for (int i = 0; i < 2; i++) {
             createDefaultData();
+        }
+
+        //Add data to database
+        ContactDBHelper db = new ContactDBHelper(getActivity());
+        for (User user : mUsers){
+            db.addUser(user);
+        }*/
+        mDbHelper = new ContactDBHelper(getActivity());
+        int size = mDbHelper.getAllUsers().size();
+        if (mDbHelper.getAllUsers().size() == 0) {
+            mUsers = new ArrayList<User>();
+            for (int i = 0; i < 2; i++) {
+                createDefaultData();
+            }
+        } else {
+            mUsers = mDbHelper.getAllUsers();
+            TypedArray avatars = getResources().obtainTypedArray(R.array.list_avatar);
+            for (int i = 0; i < mUsers.size(); i++) {
+                User user = mUsers.get(i);
+                Bitmap avatar = BitmapFactory.decodeResource(getResources(),
+                        avatars.getResourceId(user.getIdAvatar(), -1));
+                user.setAvatar(avatar);
+            }
         }
         mAdapter = new ContactListAdapter(getActivity(), mUsers);
     }
@@ -61,14 +85,17 @@ public class ContactsFragment extends Fragment implements AdapterView.OnItemClic
         mListView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
 
-        mListView.setOnItemClickListener(this);
-
         mListView.setOnLoadMoreListener(new LoadMoreListView.OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
                 new LoadDataTask().execute();
             }
         });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
     }
 
     private void createDefaultData() {
@@ -79,39 +106,10 @@ public class ContactsFragment extends Fragment implements AdapterView.OnItemClic
             Bitmap avatar = BitmapFactory.decodeResource(getResources(), avatars.getResourceId(i, -1));
             String name = names[i];
             String des = "";
-            User user = new User(avatar, name, des);
+            User user = new User(mUsers.size(), avatar, name, des, i);
             mUsers.add(user);
+            mDbHelper.addUser(user);
         }
-    }
-
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction transaction = fragmentManager.beginTransaction();
-
-        ContactDetailFragment frag = new ContactDetailFragment();
-
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("user", mUsers.get(position));
-        bundle.putInt("position", position);
-        frag.setArguments(bundle);
-
-        frag.setOnChangeItemListener(this);
-
-        transaction.replace(R.id.container, frag);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    @Override
-    public void onChange(User user, int position) {
-        //TODO Call when a user changed
-        mUsers.get(position).setUserName(user.getUserName());
-        mUsers.get(position).setDescription(user.getDescription());
-
-        mListView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
-
     }
 
     /**

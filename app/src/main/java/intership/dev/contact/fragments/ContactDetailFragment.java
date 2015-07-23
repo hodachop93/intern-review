@@ -1,10 +1,12 @@
 package intership.dev.contact.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,9 +24,6 @@ import intership.dev.contact.utils.CircleImageView;
 public class ContactDetailFragment extends Fragment implements View.OnClickListener {
     //The user in a list contacts that is given from ContactsFragment
     private User mUser;
-
-    //The position of a user in list contacts that is given from ContactsFragment
-    private int mPosition;
 
     private EditText mEdtName;
     private EditText mEdtDescription;
@@ -55,7 +54,6 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
         super.onResume();
         Bundle bundle = this.getArguments();
         mUser = (User) bundle.getSerializable("user");
-        mPosition = bundle.getInt("position");
 
         mImgAvatar.setImageBitmap(mUser.getAvatar());
         mTvName.setText(mUser.getUserName());
@@ -70,14 +68,27 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
     public void onClick(View v) {
         int id = v.getId();
         if (id == mBtnSave.getId()) {
+            hideKeyboardIfVisible();
+
             mUser.setUserName(mEdtName.getText().toString());
             mUser.setDescription(mEdtDescription.getText().toString());
 
-            mListener.onChange(mUser, mPosition);
+            mListener.onChange(mUser);
             getActivity().onBackPressed();
         }
         if (id == mBtnCancel.getId()) {
             getActivity().onBackPressed();
+        }
+    }
+
+    /**
+     * Hide virtual keyboard if it is visible
+     */
+    private void hideKeyboardIfVisible() {
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (getActivity().getCurrentFocus() != null){
+            inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                    InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 
@@ -96,6 +107,12 @@ public class ContactDetailFragment extends Fragment implements View.OnClickListe
      * was changed
      */
     public interface OnChangeItemListener {
-        void onChange(User user, int position);
+        /**
+         * This method will be invoked when the information of the user was edited and
+         * button save was clicked
+         *
+         * @param user The user was edited
+         */
+        void onChange(User user);
     }
 }
