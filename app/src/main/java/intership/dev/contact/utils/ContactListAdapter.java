@@ -1,6 +1,7 @@
 package intership.dev.contact.utils;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -23,7 +24,7 @@ import intership.dev.contact.model.User;
  * Created by hodachop93 on 21/07/2015.
  */
 public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnClickContactDialog,
-        ContactDetailFragment.OnChangeItemListener {
+        ContactDetailFragment.OnChangeItemListener, DialogInterface.OnDismissListener {
     private Context mContext;
     private List<User> mUsers;
     private ContactDialog dialog;
@@ -48,6 +49,7 @@ public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnC
         this.mContext = mContext;
         dialog = new ContactDialog(mContext);
         dialog.setOnClickListViewContactListener(this);
+        dialog.setOnDismissListener(this);
 
         mFragmentManager = ((FragmentActivity) mContext).getSupportFragmentManager();
 
@@ -112,12 +114,10 @@ public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnC
         holder.mImgBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user.setIsDelete(true);
                 holder.mImgBtnDelete.setSelected(true);
                 mPosition = position;
-                dialog.show();
                 dialog.setUser(user);
-
+                dialog.show();
             }
         });
     }
@@ -173,15 +173,19 @@ public class ContactListAdapter extends BaseAdapter implements ContactDialog.OnC
     public void onClickBtnOK(View v) {
         mDBHelper.deleteUser(mUsers.get(mPosition));
         mUsers.remove(mPosition);
-        notifyDataSetChanged();
         dialog.dismiss();
     }
 
     @Override
     public void onClickBtnCancel(View v) {
         mUsers.get(mPosition).setIsDelete(false);
-        notifyDataSetChanged();
         dialog.dismiss();
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        mUsers.get(mPosition).setIsDelete(false);
+        notifyDataSetChanged();
     }
 
 

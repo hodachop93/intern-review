@@ -18,6 +18,11 @@
         android:text="Are you sure you want to delete Micheal Jackson?"
         android:textColor="@color/Black" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/button.border" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -28,17 +33,21 @@
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_pressed_transparent_left_button"
-            android:shadowColor="#000000"
+            android:background="@drawable/bg_transparent_button"
             android:text="OK"
             android:textColor="@color/contact.dialog.button.text" />
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/button.border" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:layout_weight="1"
-            android:background="@drawable/bg_pressed_trasnparent_right_button"
+            android:background="@drawable/bg_transparent_button"
             android:text="Cancel"
             android:textColor="@color/contact.dialog.button.text" />
     </LinearLayout>

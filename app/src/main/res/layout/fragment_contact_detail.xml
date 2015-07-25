@@ -18,6 +18,7 @@
         android:layout_height="match_parent">
 
     </ScrollView>
+
     <RelativeLayout
         android:id="@+id/rlInfo"
         android:layout_width="match_parent"
@@ -73,19 +74,25 @@
         android:id="@+id/rlEditDescription"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rlEditName"
+        android:layout_below="@id/rlEditName"
         android:layout_marginTop="@dimen/contact.edtDescription.margin_top">
 
         <EditText
             android:id="@+id/edtDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""
             android:background="@color/contact.edtName.background"
             android:padding="15dp"
-            android:textSize="@dimen/contact.edtName.text.size"
-            android:textColor="@color/contact.edtName.text.color" />
+            android:text=""
+            android:textColor="@color/contact.edtName.text.color"
+            android:textSize="@dimen/contact.edtName.text.size" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_above="@+id/lnControl"
+        android:background="@color/button.border" />
 
     <LinearLayout
         android:id="@+id/lnControl"
@@ -99,19 +106,24 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_pressed_white_left_button"
+            android:background="@drawable/bg_transparent_button"
             android:clickable="true"
             android:gravity="center"
             android:text="Save"
             android:textColor="@color/contact.dialog.button.text"
             android:textSize="17sp" />
 
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/button.border" />
+
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/bg_pressed_white_right_button"
+            android:background="@drawable/bg_transparent_button"
             android:clickable="true"
             android:gravity="center"
             android:text="Cancel"
